@@ -13,6 +13,7 @@ Polymer({
         {
         	this.getjson();
         },
+        //value property is assigned to the widget
         properties:{
            value: {
             type: Object,
@@ -20,26 +21,40 @@ Polymer({
           }
         },
   getjson:function(){
+        //get the name of form tag
         var formname=this.getAttribute('name');
+        //get the childNodes in this form
         var child =Polymer.dom(this).children;
+        //holds the name value pairs
         var json={};
+        //loop over the childNodes
         for(var j=0;j<child.length;j++){
               var widget=child[j];
+              //name is mandatory for the widget to be considered
               if(widget.getAttribute('name')){
+                //if widget has value property then assign it to name
                 if(widget.value){
                   json[widget.getAttribute('name')]=widget.value;
-                }else if(widget.getAttribute('data-value')){
+                }
+                //if widget has data-value property then assign it to name
+                else if(widget.getAttribute('data-value')){
                   json[widget.getAttribute('name')]=widget.getAttribute('data-value');
-                }else if(widget.getAttribute('type')=="checkbox"||widget.getAttribute('role')=="checkbox"||widget.getAttribute('type')=="radiobutton"||widget.getAttribute('role')=="radiobutton"){
+                }
+                //if widget is checkbox/radio then checked is assigned to name
+                else if(widget.getAttribute('type')=="checkbox"||widget.getAttribute('role')=="checkbox"||widget.getAttribute('type')=="radiobutton"||widget.getAttribute('role')=="radiobutton"){
                   json[widget.getAttribute('name')]= "checked";
                 }
+                //if nothing above is found then assign innerHTML of the widget to its name
                 else{
                   json[widget.getAttribute('name')]=widget.innerHTML;
                 }
-              }else{
+              }
+              //if widget doesn't has name the loop over
+              else{
                 continue;
               }
         }
+        //value property object is assigned the above object with key the name of form
         this.value[formname]=json;
         console.log(this.value);
   }

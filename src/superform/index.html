@@ -3,26 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>CustomPolymerform</title>
-     <script src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
     <link rel="import" href="superform.html">
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-      <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../../bower_components/paper-input/paper-input.html">
     <link rel="import" href="../../bower_components/paper-input/paper-input-behavior.html">
     <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
     <link rel="import" href="../../bower_components/paper-input/paper-input-error.html">
     <link rel="import" href="../../bower_components/paper-input/paper-input-container.html">
     <link rel="import" href="../../bower_components/paper-input/paper-input-addon-behavior.html">
   </head>
-  <script>
-  </script>
   <body>
-    <form is="super-form" name="outer">
-      <form is="super-form" name="inner">
+    <form is="super-form" name="inner">
       <input type="checkbox" name="normalcheckbox" value="red">RED
       <input type="checkbox" name="normalcheckbox2" value="red">RED
       <paper-input name="paperinput" label="name"></paper-input>
     </form>
-  </form>
   </body>
 </html>
