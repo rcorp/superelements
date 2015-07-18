@@ -1,17 +1,17 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../aspire-studio/bower_components/polymer/polymer.html">
 <dom-module id="super-form">
  <template>
     <div>
       <content></content>
     </div>
-  </template>
+</template>
 <script>
 Polymer({
   is: "super-form",
   extends:'form',
   ready:function()
         {
-        	this.getjson();
+          this.getjsonwithcrud();
         },
         //value property is assigned to the widget
         properties:{
@@ -20,8 +20,8 @@ Polymer({
             value:{}
           }
         },
-  getjson:function(){
-        //get the name of form tag
+  getjsonwithcrud:function(){
+                  //get the name of form tag
         var formname=this.getAttribute('name');
         //get the childNodes in this form
         var child =Polymer.dom(this).children;
@@ -32,6 +32,7 @@ Polymer({
               var widget=child[j];
               //name is mandatory for the widget to be considered
               if(widget.getAttribute('name')){
+                var a =widget.getAttribute('name')+".operation";
                 //if widget has value property then assign it to name
                 if(widget.value){
                   json[widget.getAttribute('name')]=widget.value;
@@ -48,6 +49,9 @@ Polymer({
                 else{
                   json[widget.getAttribute('name')]=widget.innerHTML;
                 }
+                if(widget.getAttribute('operation')){
+                  json[a]=widget.getAttribute('operation');
+                }
               }
               //if widget doesn't has name the loop over
               else{
@@ -55,10 +59,45 @@ Polymer({
               }
         }
         //value property object is assigned the above object with key the name of form
-        this.value[formname]=json;
+        this.value=json;
         console.log(this.value);
+  },
+  setjsonwithcrud:function(jsonfrombackend){
+        var json = jsonfrombackend;
+        //loop to find the keys in object
+        for(key in json){
+                var child =Polymer.dom(this).children;
+                    //loop over the childNodes
+                for(var j=0;j<child.length;j++){
+                      var widget=child[j];
+                      //name is mandatory for the widget to be considered
+                      if(widget.getAttribute('name') && widget.getAttribute('name')==key){
+                        //if widget has value property 
+                        if(widget.value || widget.value==''){
+                          widget.value = json[key];
+                        }
+                        //if widget has data-value property
+                        else if(widget.getAttribute('data-value')){
+                          widget.setAttribute('data-value',json[key]);
+                        }
+                        //if nothing above is found then assign innerHTML 
+                        else{
+                          widget.innerHTML=json[key];
+                        }
+                        //this is to make the checkbox and radiobutton visible as checked
+                        if(widget.getAttribute('type')=="checkbox"||widget.getAttribute('type')=="radio"){
+                          if(json[key]=='checked')
+                            widget.checked=true;
+                        }
+                      }
+                      //if widget doesn't has name the loop over
+                      else{
+                        continue;
+                      }
+                }
+        } 
   }
-});
 
+});
 </script>
 </dom-module>
