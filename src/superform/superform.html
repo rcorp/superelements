@@ -1,0 +1,92 @@
+<dom-module id="super-form">
+	<template>
+		<div>
+			<content></content>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: "super-form",
+			extends: 'form',
+			//value property is assigned to the widget
+			properties: {
+				value: {
+					type: Object,
+					value: {}
+				}
+			},
+
+			get value() {
+				//get the name of form tag
+				var formname = this.getAttribute('name');
+
+                //get the childNodes in this form
+				var child = Polymer.dom(this).children;
+
+                //holds the name value pairs
+				var valueObj = {};
+
+                //loop over the childNodes
+				for (var j = 0; j < child.length; j++) {
+					var element = child[j],
+                        name = element.getAttribute('name')
+
+                    //name is mandatory for the element to be considered
+					if (name) {
+
+                        //if element has value property then assign it to name
+						if (element.value) {
+							valueObj[name] = element.value;
+						}
+
+                        //if element has data-value property then assign it to name
+						else if (element.getAttribute('data-value')) {
+							valueObj[name] = element.getAttribute('data-value');
+						}
+
+                        //if element is checkbox/radio then checked is assigned to name
+                        //Also picks up Elements whose "role" is checkbox or radiobutton
+                        //Like how Polymer's <iron-form> does it.
+						else if (element.getAttribute('type') == "checkbox" || element.getAttribute('role') == "checkbox" || element.getAttribute('type') == "radiobutton" || element.getAttribute('role') == "radiobutton") {
+							valueObj[name] = element.value;
+						}
+
+                        //if nothing above is found then assign innerHTML of the element to its name
+						else {
+							valueObj[name] = element.innerHTML;
+						}
+					}
+
+				}
+				return valueObj;
+			},
+			set value (valueObject) {
+
+                //loop to find the keys in object
+				for (name in valueObject) {
+
+					var value = valueObject[name];
+					var childElement = this.querySelector('[name="' + name  +'"]')
+
+					if (childElement){
+						if (childElement.value){
+							childElement.value = value;
+						}
+						else if (childElement.hasAttribute('data-name')) {
+							childElement.setAttribute('data-name', value)
+						}
+						else {
+							childElement.innerHTML = value;
+						}
+					}
+
+					//The form is giving us a key but there's no element
+					//with that name.
+					else {
+						console.warn('No element with name: "', name, '"')
+					}
+				}
+			}
+		});
+	</script>
+</dom-module>

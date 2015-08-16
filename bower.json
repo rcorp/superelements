@@ -1,0 +1,20 @@
+{
+  "name": "superelements",
+  "version": "0.0.0",
+  "homepage": "https://github.com/rcorp/superelements",
+  "authors": [
+    "Gaurav Ramanan <gaurav@rcorp.co.in>"
+  ],
+  "description": "Super, Fantastic, Interoperable Web Components — Edit",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "paper-input": "PolymerElements/paper-input#1.0.0"
+  }
+}
