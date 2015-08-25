@@ -1,0 +1,37 @@
+{
+  "name": "superelements/super-grid",
+  "version": "0.0.1-alpha",
+  "homepage": "https://github.com/rcorp/superelements",
+  "authors": [
+    "Ramanan Corporation (RCorp) <contactus@rcorp.co.in>",
+    "Gaurav Ramanan <gaurav@rcorp.co.in>"
+  ],
+  "description": "Super, Fantastic, Easy, Beautiful, Customisable, Interoperable Grid Web Component",
+  "main": "super-grid.html",
+  "keywords": [
+    "web",
+    "component",
+    "polymer",
+    "grid",
+    "dgrid",
+    "super",
+    "elements"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "dgrid": "~0.4.0",
+    "paper-input": "PolymerElements/paper-input#^1.0.0",
+    "google-map": "GoogleWebComponents/google-map#^1.0.0",
+    "handlebars": "~3.0.3"
+  },
+  "dependencies": {
+    "polymer": "Polymer/polymer#~1.1.1"
+  }
+}

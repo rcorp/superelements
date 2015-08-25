@@ -1,0 +1,33 @@
+{
+  "name": "superelements/super-code",
+  "version": "0.0.1-alpha",
+  "homepage": "https://github.com/rcorp/superelements",
+  "authors": [
+    "Ramanan Corporation (RCorp) <contactus@rcorp.co.in>",
+    "Gaurav Ramanan <gaurav@rcorp.co.in>"
+  ],
+  "description": "Super, Fantastic, Easy, Beautiful, Customisable, Interoperable Code Editor Web Component",
+  "main": "super-code.html",
+  "keywords": [
+    "web",
+    "component",
+    "polymer",
+    "code",
+    "CodeMirror",
+    "super",
+    "elements"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "polymer": "Polymer/polymer#~1.1.1",
+    "codemirror": "~5.6.0"
+  }
+}

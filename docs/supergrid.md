@@ -50,4 +50,23 @@ You can use "Editors" within columns as follows:
 </super-grid>
 ```
 
+An extremely important customisation of `super-grid` are `customRenderers`. You can take a normal `Handlebars` template and pass it on to the super column as its content via a `<template>` tag.
+
+```html
+<super-grid tree="true" >
+	<template>
+		<div class="card">
+			<h1> {{title}} <h2>
+			<p> {{snippet}} </p>
+			<ul>
+				{{#each lists}}
+					<li> {{name}} </li>
+				{{/each}}
+			</ul>
+		</div>
+	</template>
+</super-grid>
+
+```
+
 ##Supergrid Attributes
