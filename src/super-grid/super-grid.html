@@ -8,110 +8,108 @@
 		<div id="dgrid"> </div>
 		<content> </content>
 	</template>
-</dom-module>
+	<script>
+		function createGrid() {
+			var _this = this;
+			require([
+				'dojo/_base/declare',
+				'dgrid/Grid',
+				'dgrid/Tree',
+				'dgrid/Selection',
+				'lib/Editor'
 
+			], function(declare, Grid, Tree, Selection, Editor) {
+				var mixins = [];
+				_this.getAttribute('tree') ? mixins.push(Tree) : null;
+				_this.getAttribute('selection') ? mixins.push(Selection) : null;
+				mixins.push(Grid);
+				mixins.push(Editor);
+				console.log('mixins', mixins)
+				_this.dgrid = new declare(mixins)({
+					selectionMode: 'multiple',
+					columns: _this.columnStructure
+				}, 'dgrid');
 
-<script>
-	function createGrid() {
-		var _this = this;
-		require([
-			'dojo/_base/declare',
-			'dgrid/Grid',
-			'dgrid/Tree',
-			'dgrid/Selection',
-			'lib/Editor'
-
-		], function(declare, Grid, Tree, Selection, Editor) {
-			var mixins = [];
-			_this.getAttribute('tree') ? mixins.push(Tree) : null;
-			_this.getAttribute('selection') ? mixins.push(Selection) : null;
-			mixins.push(Grid);
-			mixins.push(Editor);
-			console.log('mixins', mixins)
-			_this.dgrid = new declare(mixins)({
-				selectionMode: 'multiple',
-				columns: _this.columnStructure
-			}, 'dgrid');
-
-			_this.dgrid.renderArray(_this.value)
-		});
-	}
-
-	function getColumnStructure() {
-		var _this = this;
-		var columns = [];
-
-		Array.prototype.slice.call(_this.querySelectorAll('super-column')).forEach(function(superColumn) {
-			var column = {
-				field: superColumn.getAttribute('field'),
-				label: superColumn.getAttribute('label') || superColumn.getAttribute('field'),
-				className: superColumn.getAttribute('className') || '',
-				sortable: superColumn.getAttribute('sortable') ? true : false,
-			};
-
-			var template = '';
-			if (template = superColumn.querySelector('template[data-editor]')){
-
-				//Convert something like -> 'a <paper-input> Hello </paper-input>' to -> 'paper-input'
-				var patt = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/
-				var editor = template.innerHTML.match(patt)[0].split('<')[1].split('>')[0];
-				column.editor = editor;
-			}
-			else if (template = superColumn.querySelector('template')) {
-				console.log('template', template)
-				column.renderCell = function(object, value, node, options) {
-					console.log('in RenderCell')
-					var div = document.createElement('div');
-					if (Handlebars) {
-						div.innerHTML = Handlebars.compile(template.innerHTML)(object);
-					} else {
-						div.innerHTML = template.innerHTML
-					}
-					console.log ('object, value', object, value)
-					return div.children[0];
-				}
-			}
-
-			columns.push(column)
-		})
-		return columns;
-	}
-
-	Polymer({
-		is: "super-grid",
-		created: function() {
-			this.columnStructure = getColumnStructure.call(this);
-		},
-		attached: function() {
-			createGrid.call(this);
-			console.log('super-grid attached', this, this.dgrid)
-		},
-		properties: {
-			tree: {
-				type: "boolean",
-				value: true
-			},
-			dgrid: {
-				type: "Object"
-			},
-			selection: {
-				type: "String",
-				value: false
-			},
-
-			value: {
-				type: "Array",
-				value: [],
-				observer: '_valueChanged'
-			}
-		},
-		_valueChanged: function(newValue, oldValue) {
-			if (this.dgrid && this.dgrid.refresh)
-				this.dgrid.refresh();
-
-			if (this.dgrid && this.dgrid.renderArray)
-				this.dgrid.renderArray(newValue);
+				_this.dgrid.renderArray(_this.value)
+			});
 		}
 
-	});
-</script>
+		function getColumnStructure() {
+			var _this = this;
+			var columns = [];
+
+			Array.prototype.slice.call(_this.querySelectorAll('super-column')).forEach(function(superColumn) {
+				var column = {
+					field: superColumn.getAttribute('field'),
+					label: superColumn.getAttribute('label') || superColumn.getAttribute('field'),
+					className: superColumn.getAttribute('className') || '',
+					sortable: superColumn.getAttribute('sortable') ? true : false,
+				};
+
+				var template = '';
+				if (template = superColumn.querySelector('template[data-editor]')){
+
+					//Convert something like -> 'a <paper-input> Hello </paper-input>' to -> 'paper-input'
+					var patt = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/
+					var editor = template.innerHTML.match(patt)[0].split('<')[1].split('>')[0];
+					column.editor = editor;
+				}
+				else if (template = superColumn.querySelector('template')) {
+					console.log('template', template)
+					column.renderCell = function(object, value, node, options) {
+						console.log('in RenderCell')
+						var div = document.createElement('div');
+						if (Handlebars) {
+							div.innerHTML = Handlebars.compile(template.innerHTML)(object);
+						} else {
+							div.innerHTML = template.innerHTML
+						}
+						console.log ('object, value', object, value)
+						return div.children[0];
+					}
+				}
+
+				columns.push(column)
+			})
+			return columns;
+		}
+
+		Polymer({
+			is: "super-grid",
+			created: function() {
+				this.columnStructure = getColumnStructure.call(this);
+			},
+			attached: function() {
+				createGrid.call(this);
+				console.log('super-grid attached', this, this.dgrid)
+			},
+			properties: {
+				tree: {
+					type: "boolean",
+					value: true
+				},
+				dgrid: {
+					type: "Object"
+				},
+				selection: {
+					type: "String",
+					value: false
+				},
+
+				value: {
+					type: "Array",
+					value: [],
+					observer: '_valueChanged'
+				}
+			},
+			_valueChanged: function(newValue, oldValue) {
+				if (this.dgrid && this.dgrid.refresh)
+					this.dgrid.refresh();
+
+				if (this.dgrid && this.dgrid.renderArray)
+					this.dgrid.renderArray(newValue);
+			}
+
+		});
+	</script>
+</dom-module>
