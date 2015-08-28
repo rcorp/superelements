@@ -15,34 +15,47 @@
 				'dgrid/Grid',
 				'dgrid/Tree',
 				'dgrid/Selection',
-				'lib/Editor'
+				'lib/Editor',
+				'dgrid/OnDemandGrid',
+				'dgrid/Selector',
+				'dstore/Memory',
+           		'dstore/Trackable'
 
-			], function(declare, Grid, Tree, Selection, Editor) {
+			], function(declare, Grid, Tree, Selection, Editor, OnDemandGrid, Selector, Memory, Trackable) {
 
+				_this.store = new (declare([Memory, Trackable]))({
+						data: []
+				});
 				//Holding array for all the Classes we have to mixin
 				var mixins = [];
 
 				//Decide which mixins to push based on the Host Element's Attributes
 				_this.getAttribute('tree') ? mixins.push(Tree) : null;
-				_this.getAttribute('selection') ? mixins.push(Selection) : null;
+				
+				//_this.getAttribute('selection') ? mixins.push(Selection) : null;
 
 				//These have to pushed inspite of not getting defined in the Attributes
-				mixins.push(Grid);
+				mixins.push(OnDemandGrid);
+				mixins.push(Selector);
 				mixins.push(Editor);
 
 				//Create a new instance of dgrid. For later purposes we are storing
 				//the instance as an DOM Fproperty of the hsot element so it can
 				//retrieved as Element.dgrid
 				_this.dgrid = new declare(mixins)({
-					selectionMode: 'multiple',
-					columns: _this.columnStructure
+					
+					//selectionMode: 'multiple',
+					columns: _this.columnStructure,
+					collection: _this.store
+
 				});
 
+				
 				//Finally append the dGrid instance to the Host DOM.
 				_this.appendChild(_this.dgrid.domNode);
 
 				//Render the dgrid according to the value of the host DOM.
-				_this.dgrid.renderArray(_this.value)
+				//_this.dgrid.renderArray(_this.value)
 			});
 		}
 
@@ -53,16 +66,18 @@
 			var _this = this;
 			var columns = [];
 
+			 
 			Array.prototype.slice.call(_this.querySelectorAll('super-column')).forEach(function(superColumn) {
 				var column = {
 					field: superColumn.getAttribute('field'),
 					label: superColumn.getAttribute('label') || superColumn.getAttribute('field'),
 					className: superColumn.getAttribute('className') || '',
 					sortable: superColumn.getAttribute('sortable') ? true : false,
+
 				};
 
 				var template = '';
-
+				
 				//We have an editor tag defined within <template> </template>
 				if (template = superColumn.querySelector('template[data-editor]')){
 
@@ -86,13 +101,16 @@
 						if (Handlebars) {
 							div.innerHTML = Handlebars.compile(template.innerHTML)(object);
 						}
-
 						//If Handlebars isn't defined, simply dump the output as is.
 						else {
 							div.innerHTML = template.innerHTML
 						}
 						return div.children[0];
 					}
+				}
+
+				else if(superColumn.getAttribute('selector') == 'checkbox'){
+					column.selector = 'checkbox';			
 				}
 
 				columns.push(column)
@@ -126,14 +144,17 @@
 					type: "Array",
 					value: [],
 					observer: '_valueChanged'
-				}
+				},
+				selector: {
+					type: "boolean",
+					value: true
+				},
 			},
 			_valueChanged: function(newValue, oldValue) {
-				if (this.dgrid && this.dgrid.refresh)
-					this.dgrid.refresh();
-
-				if (this.dgrid && this.dgrid.renderArray)
-					this.dgrid.renderArray(newValue);
+				if (this.dgrid){
+					this.store.data = newValue;
+					this.dgrid.renderArray(this.store.data);
+				}
 			}
 
 		});
