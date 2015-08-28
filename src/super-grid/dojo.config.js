@@ -10,6 +10,10 @@ var dojoConfig = {
     		location: './bower_components/dgrid'
 
     	}, {
+            name: 'dstore',
+            location: './bower_components/dstore'
+
+        }, {
     		name: 'xstyle',
     		location: './bower_components/xstyle'
     	}, {
