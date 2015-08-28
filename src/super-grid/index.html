@@ -12,7 +12,7 @@
 	<link rel="import" href="bower_components/paper-input/paper-input.html" />
 	<link rel="import" href="bower_components/google-map/google-map.html" />
 	<link rel="import" href="./super-grid.html" />
-	<link rel="import" href="../super-code/super-code.html" />
+	<!-- <link rel="import" href="../super-code/super-code.html" /> -->
 </head>
 
 <body>
@@ -57,6 +57,20 @@
 		<super-column>
 			<template>
 				<google-map latitude={{latitude}} longitude={{longitude}}> </google-map>
+			</template>
+		</super-column>
+	</super-grid>
+
+	<super-grid selection="true">
+		<super-column field = "A" selector="checkbox"></super-column>
+		<super-column field = "B">
+			<template>
+				<h1>Form</h1>
+			</template>
+		</super-column>
+		<super-column field = "C">
+			<template >
+				<img src="download-icon.png" />
 			</template>
 		</super-column>
 	</super-grid>
