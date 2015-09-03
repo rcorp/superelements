@@ -11,6 +11,7 @@
 
 	<link rel="import" href="bower_components/paper-input/paper-input.html" />
 	<link rel="import" href="bower_components/google-map/google-map.html" />
+	<link rel="import" href="bower_components/paper-button/paper-button.html" />
 	<link rel="import" href="./super-grid.html" />
 	<!-- <link rel="import" href="../super-code/super-code.html" /> -->
 </head>
@@ -61,11 +62,12 @@
 		</super-column>
 	</super-grid>
 
+	<!-- forms list grid -->
 	<super-grid selection="true">
 		<super-column field = "A" selector="checkbox"></super-column>
 		<super-column field = "B">
 			<template>
-				<h1>Form</h1>
+				<h1>{{name}}</h1>
 			</template>
 		</super-column>
 		<super-column field = "C">
@@ -75,6 +77,21 @@
 		</super-column>
 	</super-grid>
 
+	<!-- Pop Up Download Grid-->
+	<super-grid>
+		<super-column field ="Tex">
+			<template>
+				<h3> {{name}}</h3>
+			</template>
+		</super-column>
+		<super-column field = "Button">
+			<template>
+				<a href="/html/index.htm" target="_blank" download="file name"> 
+				<paper-button>PREVIEW</input-button>
+				</a>
+			</template>
+		</super-column>
+	</super-grid>
 </body>
 
 </html>
