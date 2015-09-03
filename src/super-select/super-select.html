@@ -1,0 +1,65 @@
+<link rel="import" href="bower_components/polymer/polymer.html" />
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="select2-4.0.0/dist/css/select2.min.css"  />
+
+<script type="text/javascript" src="select2-4.0.0/dist/js/select2.min.js"></script>
+
+<style type="text/css">
+	.data-margin{
+		margin-left: 15px;
+	}
+</style>
+
+<dom-module id="super-select">
+	<template>
+		<content> </content>
+	</template>
+	<script>
+
+	function formatData (data) {
+		var $data = $(
+	  		 '<span>' + data.title  + '</span>' + '<span class="data-margin">' + data.text + '</span>'
+	  	);
+		return $data;
+	};
+
+	superSelect = Polymer({		
+		is: 'super-select',
+		extends: 'select',
+		ready: function() {
+			var self = this;
+			this._value = this._value || []
+	  		$(this).select2({
+	  			placeholder: self.placeholder,
+	  			templateSelection: formatData,
+	  			templateResult: formatData,
+	  			data : self._value
+	  		});
+	  	},
+
+		properties: {
+    		value: {
+		  		type: "Array",
+		  		value: [],
+		  		observer: '_valueChanged'
+	  		},
+	  		placeholder: {
+	  			type: "String",
+	  			value: true
+	  		}
+	  	},
+	  	_valueChanged: function(newValue, oldValue) {
+		  	self._value = newValue;
+		  	$(this).select2({
+		  		placeholder: self.placeholder,
+		  	  templateSelection: formatData,
+		  	  templateResult: formatData,
+		  	  data : self._value
+		  	});
+		}
+	});
+
+</script>
+</dom-module>
