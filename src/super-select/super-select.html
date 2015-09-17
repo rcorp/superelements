@@ -1,11 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer.html" />
-
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="select2-4.0.0/dist/css/select2.min.css"  />
-
 <script type="text/javascript" src="select2-4.0.0/dist/js/select2.min.js"></script>
-
 <style type="text/css">
 	.data-margin{
 		margin-left: 15px;
@@ -20,12 +16,12 @@
 
 	function formatData (data) {
 		var $data = $(
-	  		 '<span>' + data.title  + '</span>' + '<span class="data-margin">' + data.text + '</span>'
+	  		 '<span>' + data.text  + '</span>' + '<span class="data-margin">' + data.description + '</span>'
 	  	);
 		return $data;
 	};
 
-	superSelect = Polymer({		
+	superSelect = Polymer({
 		is: 'super-select',
 		extends: 'select',
 		ready: function() {
@@ -33,7 +29,7 @@
 			this._value = this._value || []
 	  		$(this).select2({
 	  			placeholder: self.placeholder,
-	  			templateSelection: formatData,
+	  			// templateSelection: formatData,
 	  			templateResult: formatData,
 	  			data : self._value
 	  		});
@@ -54,7 +50,7 @@
 		  	self._value = newValue;
 		  	$(this).select2({
 		  		placeholder: self.placeholder,
-		  	  templateSelection: formatData,
+		  	  // templateSelection: formatData,
 		  	  templateResult: formatData,
 		  	  data : self._value
 		  	});
