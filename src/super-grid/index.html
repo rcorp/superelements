@@ -62,9 +62,48 @@
 		</super-column>
 	</super-grid>
 
-	<!-- forms list grid -->
+
 	<super-grid selection="true">
-		<super-column field = "A" selector="checkbox"></super-column>
+		<super-column field = "checkbox" selector="checkbox"></super-column>
+		<super-column field = "text">
+			<template>
+				<h1>{{name}}</h1>
+			</template>
+		</super-column>
+		<super-column field = "image">
+			<template >
+				<img src="download-icon.png" />
+			</template>
+		</super-column>
+	</super-grid>
+
+
+	<super-grid>
+		<super-column field ="Tex">
+			<template>
+				<h3> {{name}}</h3>
+			</template>
+		</super-column>
+		<super-column field = "Button">
+			<template>
+				<a href="/html/index.htm" target="_blank" download="file name">
+				<paper-button>PREVIEW</input-button>
+				</a>
+			</template>
+		</super-column>
+	</super-grid>
+
+	<super-grid selection="true">
+		<super-column field = "C">
+			<template >
+				<img src="download-icon.png" />
+			</template>
+		</super-column>
+		<super-column field = "B">
+			<template>
+				<h1>{{title}}</h1>
+			</template>
+		</super-column>
 		<super-column field = "B">
 			<template>
 				<h1>{{name}}</h1>
@@ -75,23 +114,31 @@
 				<img src="download-icon.png" />
 			</template>
 		</super-column>
+
 	</super-grid>
 
-	<!-- Pop Up Download Grid-->
-	<super-grid>
+	<super-grid selection="true" tree="true" >
+		<super-column renderExpando="true" field="id"></super-column>
+		<super-column field="name">
+
+		</super-column>
+	</super-grid>
+<!-- google drive templates -->
+	<super-grid selection="true" tree="true" >
+		<super-column field = "checkbox" selector="checkbox"></super-column>
+		<super-column renderExpando="true" field="id"></super-column>
+		<super-column field = "image">
+			<template >
+				<img src="download-icon.png" />
+			</template>
+		</super-column>
 		<super-column field ="Tex">
 			<template>
 				<h3> {{name}}</h3>
 			</template>
 		</super-column>
-		<super-column field = "Button">
-			<template>
-				<a href="/html/index.htm" target="_blank" download="file name"> 
-				<paper-button>PREVIEW</input-button>
-				</a>
-			</template>
-		</super-column>
 	</super-grid>
+
 </body>
 
 </html>
