@@ -3,12 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Super Select! Demo</title>
-		<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+		<script>
+			Error.stackTraceLimit = Infinity;
+		</script>
+
+		<script src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
+
 		<link rel="import" href="super-select.html" />
+		<link rel="import" href="../super-grid/super-grid.html" />
 	</head>
 
 	<body>
-
+		<super-grid>
+			<super-column field="alpha" label = "Alpha"> </super-column>
+			<super-column field="alpha" label = "Beta"> </super-column>
+		</super-grid>
 		<select is="super-select" placeholder="Select Template..........."></select>
 
 	</body>

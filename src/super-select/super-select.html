@@ -1,9 +1,10 @@
-<link rel="import" href="bower_components/polymer/polymer.html" />
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+<link rel="stylesheet" type="text/css" href="bower_components/select2/dist/css/select2.min.css" />
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="select2-4.0.0/dist/css/select2.min.css"  />
-<script type="text/javascript" src="select2-4.0.0/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="bower_components/select2/dist/js/select2.min.js"></script>
+
 <style type="text/css">
-	.data-margin{
+	.data-margin {
 		margin-left: 15px;
 	}
 </style>
@@ -13,49 +14,47 @@
 		<content> </content>
 	</template>
 	<script>
+		function formatData(data) {
+			var $data = $(
+				'<span>' + data.text + '</span>' + '<span class="data-margin">' + data.description + '</span>'
+			);
+			return $data;
+		};
 
-	function formatData (data) {
-		var $data = $(
-	  		 '<span>' + data.text  + '</span>' + '<span class="data-margin">' + data.description + '</span>'
-	  	);
-		return $data;
-	};
+		superSelect = Polymer({
+			is: 'super-select',
+			extends: 'select',
+			ready: function() {
+				var self = this;
+				this._value = this._value || []
+				$(this).select2({
+					placeholder: self.placeholder,
+					// templateSelection: formatData,
+					templateResult: formatData,
+					data: self._value
+				});
+			},
 
-	superSelect = Polymer({
-		is: 'super-select',
-		extends: 'select',
-		ready: function() {
-			var self = this;
-			this._value = this._value || []
-	  		$(this).select2({
-	  			placeholder: self.placeholder,
-	  			// templateSelection: formatData,
-	  			templateResult: formatData,
-	  			data : self._value
-	  		});
-	  	},
-
-		properties: {
-    		value: {
-		  		type: "Array",
-		  		value: [],
-		  		observer: '_valueChanged'
-	  		},
-	  		placeholder: {
-	  			type: "String",
-	  			value: true
-	  		}
-	  	},
-	  	_valueChanged: function(newValue, oldValue) {
-		  	self._value = newValue;
-		  	$(this).select2({
-		  		placeholder: self.placeholder,
-		  	  // templateSelection: formatData,
-		  	  templateResult: formatData,
-		  	  data : self._value
-		  	});
-		}
-	});
-
-</script>
+			properties: {
+				value: {
+					type: "Array",
+					value: [],
+					observer: '_valueChanged'
+				},
+				placeholder: {
+					type: "String",
+					value: true
+				}
+			},
+			_valueChanged: function(newValue, oldValue) {
+				self._value = newValue;
+				$(this).select2({
+					placeholder: self.placeholder,
+					// templateSelection: formatData,
+					templateResult: formatData,
+					data: self._value
+				});
+			}
+		});
+	</script>
 </dom-module>
