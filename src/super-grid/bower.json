@@ -1,5 +1,5 @@
 {
-  "name": "superelements/super-grid",
+  "name": "super-grid",
   "version": "0.0.1-alpha",
   "homepage": "https://github.com/rcorp/superelements",
   "authors": [
@@ -29,7 +29,8 @@
     "dgrid": "~0.4.0",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
     "google-map": "GoogleWebComponents/google-map#^1.0.0",
-    "handlebars": "~3.0.3"
+    "handlebars": "~3.0.3",
+    "util": "https://github.com/dojo/util.git#~1.10.4"
   },
   "dependencies": {
     "polymer": "Polymer/polymer#~1.1.1"

@@ -1,0 +1,37 @@
+{
+  "name": "superlements",
+  "version": "1.0.0",
+  "keywords": [
+    "test-resolver"
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.61.0",
+    "test-resolver": "1.0.0"
+  },
+  "description": "**Super, Fantastic, Easy, Beautiful, Customisable, Interoperable Web Components.**",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-dom-munger": "^3.4.0",
+    "grunt-shell": "^1.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcorp/superelements.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcorp/superelements/issues"
+  },
+  "homepage": "https://github.com/rcorp/superelements#readme"
+}

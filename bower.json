@@ -3,9 +3,9 @@
 	"version": "0.0.0",
 	"homepage": "https://github.com/rcorp/superelements",
 	"authors": [
-		"Gaurav Ramanan <gaurav@rcorp.co.in>"
+		"Ramanan Corporation <contactus@rcorp.co.in>"
 	],
-	"description": "Super, Fantastic, Interoperable Web Components — Edit",
+	"description": "Super, Fantastic, Interoperable Web Components",
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
@@ -15,10 +15,6 @@
 		"tests"
 	],
 	"devDependencies": {
-		"paper-input": "PolymerElements/paper-input#1.0.0",
-		"dojo": "~1.10.4",
-		"dgrid": "~0.4.0",
-		"google-map": "GoogleWebComponents/google-map#^1.0.0"
 	},
 	"dependencies": {
 		"handlebars": "~3.0.3",

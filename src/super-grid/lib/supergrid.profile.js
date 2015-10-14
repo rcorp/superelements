@@ -5,22 +5,29 @@ var profile = {
 	mini: false,
 	//optimize : "shrinksafe",
 
-	stripConsole: "none",
+	stripConsole: "all",
 	selectorEngine: "lite",
-	packages: ["dojo", "dgrid", "xstyle", "put-selector"],
+	packages: ["dojo", "dgrid", "xstyle", "put-selector", "lib", "dstore"],
 	layers: {
 		"dojo/out": {
 			include: [
 				"dojo/dojo",
+				"dojo/has",
 				'dojo/_base/declare',
 				'dgrid/List',
 				'dgrid/Keyboard',
 				'dgrid/Grid',
 				'dgrid/Tree',
-				'dgrid/Selection'
+				'dgrid/Selection',
+				'dgrid/Selector',
+				'dgrid/OnDemandGrid',
+				'dstore/Tree',
+				'dstore/Trackable',
+				'dstore/Memory',
+				'lib/Editor'
 			],
 			customBase: true,
-			boot: true,
+			boot: false,
 			includeLocales: ['en-us', 'en-gb']
 		}
 	},
@@ -30,6 +37,10 @@ var profile = {
 	staticHasFeatures: {
 		// The trace & log APIs are used for debugging the loader, so we don't need them in the build
 		"dojo-trace-api": 0,
+		"dojo-has-api": 0,
+		"ie": 10,
+
+		"dojo-host-node": 0,
 
 		"dojo-log-api": 0,
 
@@ -40,6 +51,6 @@ var profile = {
 		"dojo-sync-loader": 0,
 
 		// We aren't loading tests in production
-		"dojo-test-sniff": 0,
+		"dojo-test-sniff": 0
 	}
 }
