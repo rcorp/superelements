@@ -1,18 +1,18 @@
 var dojoConfig = {
 	locale: 'en-us',
     blankGif: '../../assets/blank.gif',
-	baseUrl: './_',
+	baseUrl: '.',
     packages: [
     	{
     		name: 'dojo',
-    		location: '../bower_components/dojo'
+    		location: './bower_components/dojo'
     	}, {
     		name: 'dgrid',
-    		location: '../bower_components/dgrid'
+    		location: './bower_components/dgrid'
 
     	}, {
             name: 'dstore',
-            location: '../bower_components/dstore'
+            location: './bower_components/dstore'
 
         }, {
     		name: 'xstyle',
@@ -22,10 +22,7 @@ var dojoConfig = {
     		location: '../bower_components/put-selector'
     	}, {
     		name: 'lib',
-    		location: './'
-    	}, {
-			name: 'dstore',
-			location: '../bower_components/dstore'
-		}
+    		location: './lib'
+    	}
     ]
 };
