@@ -31,6 +31,7 @@ require([
 		mixins.push(OnDemandGrid);
 		mixins.push(Selector);
 		mixins.push(Editor);
+		mixins.push(Tree);
 
 
 		//Create a new instance of dgrid. For later purposes we are storing
