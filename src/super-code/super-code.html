@@ -1,67 +1,75 @@
-<link rel="import" href="./bower_components/polymer/polymer.html" />
-<script src="./bower_components/codemirror/lib/codemirror.js"> </script>
+<script src="./bower_components/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" type="text/css" href="./bower_components/codemirror/lib/codemirror.css" />
 
 <dom-module id="super-code">
 	<template>
-		<textarea id="textarea">
-			<content> </content>
-		</textarea>
+		<content> </content>
+		<textarea id="textarea"></textarea>
 	</template>
-</dom-module>
+	<script>
+		// Taken from the fantastic Dojo Library here:
+		// https://github.com/dojo/dojo/blob/master/_base/lang.js#L68
+		// Copyright (c) 2005-2015, The Dojo Foundation
+		// All rights reserved. BSD/AFL LICENSE.
+		var _mixin = function(dest, source, copyFunc) {
 
-
-<script>
-	var _mixin = function(dest, source, copyFunc) {
-		// summary:
-		//		Copies/adds all properties of source to dest; returns dest.
-		// dest: Object
-		//		The object to which to copy/add all properties contained in source.
-		// source: Object
-		//		The object from which to draw all properties to copy into dest.
-		// copyFunc: Function?
-		//		The process used to copy/add a property in source; defaults to the Javascript assignment operator.
-		// returns:
-		//		dest, as modified
-		// description:
-		//		All properties, including functions (sometimes termed "methods"), excluding any non-standard extensions
-		//		found in Object.prototype, are copied/added to dest. Copying/adding each particular property is
-		//		delegated to copyFunc (if any); copyFunc defaults to the Javascript assignment operator if not provided.
-		//		Notice that by default, _mixin executes a so-called "shallow copy" and aggregate types are copied/added by reference.
-		var name, s, i, empty = {};
-		for (name in source) {
-			// the (!(name in empty) || empty[name] !== s) condition avoids copying properties in "source"
-			// inherited from Object.prototype.	 For example, if dest has a custom toString() method,
-			// don't overwrite it with the toString() method that source inherited from Object.prototype
-			s = source[name];
-			if (!(name in dest) || (dest[name] !== s && (!(name in empty) || empty[name] !== s))) {
-				dest[name] = copyFunc ? copyFunc(s) : s;
+			// summary:
+			//		Copies/adds all properties of source to dest; returns dest.
+			// dest: Object
+			//		The object to which to copy/add all properties contained in source.
+			// source: Object
+			//		The object from which to draw all properties to copy into dest.
+			// copyFunc: Function?
+			//		The process used to copy/add a property in source; defaults to the Javascript assignment operator.
+			// returns:
+			//		dest, as modified
+			// description:
+			//		All properties, including functions (sometimes termed "methods"), excluding any non-standard extensions
+			//		found in Object.prototype, are copied/added to dest. Copying/adding each particular property is
+			//		delegated to copyFunc (if any); copyFunc defaults to the Javascript assignment operator if not provided.
+			//		Notice that by default, _mixin executes a so-called "shallow copy" and aggregate types are copied/added by reference.
+			var name, s, i, empty = {};
+			for (name in source) {
+				// the (!(name in empty) || empty[name] !== s) condition avoids copying properties in "source"
+				// inherited from Object.prototype.	 For example, if dest has a custom toString() method,
+				// don't overwrite it with the toString() method that source inherited from Object.prototype
+				s = source[name];
+				if (!(name in dest) || (dest[name] !== s && (!(name in empty) || empty[name] !== s))) {
+					dest[name] = copyFunc ? copyFunc(s) : s;
+				}
 			}
+			return dest; // Object
 		}
-		return dest; // Object
-	}
-	Polymer({
-		is: "super-code",
-		created: function() {
+		Polymer({
+			is: "super-code",
+			created: function() {},
 
-		},
-		attached: function() {
-			console.log ('this', this, 'this.$', this.$);
-			var editor = CodeMirror.fromTextArea(this.$.textarea, {
-				lineNumbers: true
-			});
-			_mixin(this, editor)
+			attached: function() {},
 
-		},
-		properties: {
+			ready: function() {
+				console.log('content', this.textContent);
 
-		},
-		// _valueChanged: function(newValue, oldValue) {
-		// 	if (this.dgrid && this.dgrid.refresh)
-		// 		this.dgrid.refresh();
-		//
-		// 	if (this.dgrid && this.dgrid.renderArray)
-		// 		this.dgrid.renderArray(newValue);
-		// }
+				//Grab the instance of CodeMirror
+				var editor = CodeMirror.fromTextArea(this.$.textarea, {
+					lineNumbers: true,
+					value: this.innerHTML
+				});
 
-	});
-</script>
+				//Inherit all properties (including inside prototype) into the
+				//host DOM Element.
+				_mixin(this, editor)
+			},
+			properties: {
+
+			},
+			// TODO Implement an observable into value property.
+			// _valueChanged: function(newValue, oldValue) {
+			// 	if (this.dgrid && this.dgrid.refresh)
+			// 		this.dgrid.refresh();
+			//
+			// 	if (this.dgrid && this.dgrid.renderArray)
+			// 		this.dgrid.renderArray(newValue);
+			// }
+		});
+	</script>
+</dom-module>

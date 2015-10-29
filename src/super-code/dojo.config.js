@@ -18,6 +18,9 @@ var dojoConfig = {
     	}, {
     		name: 'lib',
     		location: './lib'
-    	}
+    	}, {
+			name: 'dstore',
+			location: './bower_components/dstore'
+		}
     ]
 };
