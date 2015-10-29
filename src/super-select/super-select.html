@@ -26,34 +26,58 @@
 			extends: 'select',
 			ready: function() {
 				var self = this;
-				this._value = this._value || []
 				$(this).select2({
 					placeholder: self.placeholder,
-					// templateSelection: formatData,
 					templateResult: formatData,
-					data: self._value
-				});
+				})
 			},
 
 			properties: {
-				value: {
-					type: "Array",
-					value: [],
-					observer: '_valueChanged'
-				},
 				placeholder: {
-					type: "String",
-					value: true
+					type: "String"
+				},
+				_value: {
+					type: Array
 				}
 			},
-			_valueChanged: function(newValue, oldValue) {
-				self._value = newValue;
-				$(this).select2({
-					placeholder: self.placeholder,
-					// templateSelection: formatData,
-					templateResult: formatData,
-					data: self._value
-				});
+			get value () {
+				return this._value
+			},
+			set value (val) {
+				this.reset()
+				$(this).select2({data: val})
+				$(this).trigger('change')
+				this._value = val
+			},
+			get selected () {
+				var data = $(this).select2('data')
+				//An unecessary refernce to select2 is in `element`.
+				delete data.element
+				return data
+			},
+
+			/**
+			 * Makes Super Select select the option of the given id.
+			 * If an array is given, it will select all the options.
+			 * @param  {any} selectedVal [id of the option we want to get selected. If an Array is given,
+			 * Super Select will multiselect all the given options]
+			 */
+			set selected (selectedVal) {
+
+
+				/**
+				 * Doesnt Work for now. `indexOf` is always returning 1.
+				 * Need to use Ramda!
+				 *
+				if (typeof selectedVal == 'object')
+					if (this.value.indexOf(selectedVal) != -1)
+						$(this).select2('val', this.value[id])
+				else
+				**/
+					$(this).select2('val', selectedVal)
+			},
+			reset: function () {
+				$(this).select2('val', '')
 			}
 		});
 	</script>

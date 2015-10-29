@@ -10,15 +10,27 @@
 		<script src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
 
 		<link rel="import" href="super-select.html" />
-		<link rel="import" href="../super-grid/super-grid.html" />
 	</head>
 
 	<body>
-		<super-grid>
-			<super-column field="alpha" label = "Alpha"> </super-column>
-			<super-column field="alpha" label = "Beta"> </super-column>
-		</super-grid>
-		<select is="super-select" placeholder="Select Template..........."></select>
+		<select is="super-select" id="super-select-demo" placeholder="Select Template"></select>
+		<script type="text/javascript">
+			var select = document.getElementById('super-select-demo')
+			select.value = [{
+				id: 'DEL',
+				text: 'Delhi'
+			},{
+				id: 'MUM',
+				text: 'Mumbai'
+			},{
+				id: 'KOL',
+				text: 'Kolkata'
+			},{
+				id: 'CHN',
+				text: 'Chennai'
+			}]
 
+			select.selected = ['MUM', "MUM"]
+		</script>
 	</body>
 </html>
