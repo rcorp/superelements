@@ -14,23 +14,47 @@
 
 	<body>
 		<select is="super-select" id="super-select-demo" placeholder="Select Template"></select>
+		<button id="change-value-btn"> Change Value </button>
+		<h2 id="open-close-label"> Close </h2>
+
 		<script type="text/javascript">
+			//Shortcuts
 			var select = document.getElementById('super-select-demo')
+
 			select.value = [{
-				id: 'DEL',
-				text: 'Delhi'
-			},{
-				id: 'MUM',
-				text: 'Mumbai'
-			},{
-				id: 'KOL',
-				text: 'Kolkata'
-			},{
-				id: 'CHN',
-				text: 'Chennai'
+				id: 'NDL',
+				text: 'New Delhi'
+			}, {
+				id: 'NYC',
+				text: 'New York'
 			}]
 
-			select.selected = ['MUM', "MUM"]
+			document.querySelector('#change-value-btn').addEventListener('click', function () {
+				select.value = [{
+					id: 'DEL',
+					text: 'Delhi'
+				},{
+					id: 'MUM',
+					text: 'Mumbai'
+				},{
+					id: 'KOL',
+					text: 'Kolkata'
+				},{
+					id: 'CHN',
+					text: 'Chennai'
+				}]
+			})
+
+			document.querySelector('#super-select-demo').addEventListener('open', function () {
+				console.log(this, 'opened!')
+				document.querySelector('#open-close-label').innerHTML = 'Open'
+			})
+
+			document.querySelector('#super-select-demo').addEventListener('close', function () {
+				console.log(this, 'closed!')
+				document.querySelector('#open-close-label').innerHTML = 'Close'
+			})
+
 		</script>
 	</body>
 </html>
